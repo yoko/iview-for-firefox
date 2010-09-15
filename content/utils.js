@@ -127,7 +127,9 @@ function createHTMLDocumentByString(doc, str, charset) {
 		}
 
     var html = str.replace(/<!DOCTYPE.*?>/, '').replace(/<html.*?>/, '').replace(/<\/html>.*/, '')
-    var htmlDoc  = doc.implementation.createDocument(null, 'html', null)
+    var XHTML_NS = 'http://www.w3.org/1999/xhtml';
+    var doctype = document.implementation.createDocumentType('html', '-//W3C//DTD HTML 4.01//EN', 'http://www.w3.org/TR/html4/strict.dtd');
+    var htmlDoc  = doc.implementation.createDocument(XHTML_NS, 'html', doctype);
     var fragment = createDocumentFragmentByString(doc, html)
     try {
         fragment = htmlDoc.adoptNode(fragment)
@@ -182,4 +184,3 @@ function convertToUnicode(s, charset){
 
 	return converter.ConvertToUnicode(s);
 }
-
